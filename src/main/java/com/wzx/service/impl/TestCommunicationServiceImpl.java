@@ -1,6 +1,7 @@
 package com.wzx.service.impl;
 
 import com.wzx.Voluble;
+import com.wzx.annotations.ExposeToOuterNet;
 import com.wzx.message.CommunicationMessage;
 import com.wzx.message.CommunicationMessageBuilder;
 import com.wzx.message.MessageDetail;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@ExposeToOuterNet
 @Service
 public class TestCommunicationServiceImpl implements Voluble {
     public String test(String name){
@@ -21,6 +22,9 @@ public class TestCommunicationServiceImpl implements Voluble {
         map.put("name","wzx");
         map.put("age","23");
         return map;
+    }
+    public String dadoudou(){
+        return "dadoudou";
     }
 
     /*@Override
