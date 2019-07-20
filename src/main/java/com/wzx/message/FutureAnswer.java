@@ -1,13 +1,18 @@
 package com.wzx.message;
 
+import com.wzx.exceptions.CommunicationTimeOutException;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+
+
+
 public class FutureAnswer  implements Future {
-    private Object answer;
-    private  boolean isDone;
+    private volatile Object answer;
+    private volatile boolean isDone;
     private volatile boolean answered;//whether the message has been answered
     @Override
     public boolean cancel(boolean mayInterruptIfRunning) {
@@ -36,10 +41,17 @@ public class FutureAnswer  implements Future {
 
     @Override
     public Object get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+        long startTime=System.currentTimeMillis();
+        long leftTime=0;
+        long waitTotalTime=unit.toMillis(timeout);
         synchronized (this){
-            while(!answered){
-                wait(unit.toMillis(timeout));
-                return answer;
+            leftTime=waitTotalTime-(System.currentTimeMillis()-startTime);
+            while(!answered&&leftTime>0){
+                wait(leftTime);
+                leftTime=waitTotalTime-(System.currentTimeMillis()-startTime);
+            }
+            if(!answered){
+                throw  new CommunicationTimeOutException("can not get the result in the given time");
             }
             return answer;
         }

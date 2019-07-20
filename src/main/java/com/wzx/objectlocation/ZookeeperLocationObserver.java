@@ -6,7 +6,6 @@ import org.I0Itec.zkclient.ZkClient;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ZookeeperLocationObserver  implements LocationObserver{

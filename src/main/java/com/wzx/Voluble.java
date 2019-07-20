@@ -6,10 +6,7 @@ import com.wzx.message.MessageDisposeCenter;
 import com.wzx.message.SpringBeanAccessor;
 import com.wzx.words.DefaultWordsParser;
 import com.wzx.words.WordsParser;
-import org.springframework.util.StringUtils;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;

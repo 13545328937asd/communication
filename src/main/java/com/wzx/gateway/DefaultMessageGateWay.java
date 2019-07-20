@@ -1,10 +1,15 @@
 package com.wzx.gateway;
 
+import com.wzx.Config.CommunicationConf;
 import com.wzx.Voluble;
 import com.wzx.exceptions.RemoteObjectNotFoundException;
 import com.wzx.loadbalance.LoadBalance;
 import com.wzx.loadbalance.RandomLoadBalance;
 import com.wzx.message.CommunicationMessage;
+import com.wzx.networking.NettyCommunicationClient;
+import com.wzx.networking.NettyCommunnicationServer;
+import com.wzx.networking.ObjectCommunicationClient;
+import com.wzx.networking.ObjectCommunicationServer;
 import com.wzx.objectlocation.LocationManager;
 import com.wzx.objectlocation.LocationObserver;
 import com.wzx.objectlocation.ZookeeperLocationManager;
@@ -12,21 +17,45 @@ import com.wzx.objectlocation.ZookeeperLocationObserver;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 @Component("messageGateWay")
 public class DefaultMessageGateWay implements  MessageGateWay, Voluble {
     private LocationManager locationManager;
     private LocationObserver locationObserver;
     private LoadBalance loadBalance;
+    private Map<String, ObjectCommunicationClient> clients=new HashMap<String, ObjectCommunicationClient>();
+    private ObjectCommunicationServer server;
     ConcurrentHashMap<String, List<String>> locationTable=new ConcurrentHashMap<>();
     @PostConstruct
-    public void init(){
+    public void init() throws InterruptedException {
         locationObserver=getLocationObserver(locationTable);
         locationManager=getLocationManager();
         loadBalance=getLoadBalance();
+        server=getObjectCommunicationServer();
+        Thread thread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    server.startServer();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
+        //server.startServer();
         locationObserver.startObserve();
+    }
+
+    private ObjectCommunicationServer getObjectCommunicationServer() {
+        return new NettyCommunnicationServer(Integer.parseInt(CommunicationConf.get("expose-port")));
     }
 
     private LoadBalance getLoadBalance() {
@@ -56,14 +85,35 @@ public class DefaultMessageGateWay implements  MessageGateWay, Voluble {
     }
 
     @Override
-    public void receiveMessage() {
+    public void receiveMessage(CommunicationMessage message) {
 
     }
 
     @Override
     public void sendMessage(CommunicationMessage message) {
         String location=findDestination(message.getToObjName());
+        ObjectCommunicationClient client = getClient(location);
+        try {
+            client.sendMessage(message);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
 
+    }
+
+    private  ObjectCommunicationClient getClient(String location) {
+        ObjectCommunicationClient communicationClient = clients.get(location);
+        if(communicationClient==null){
+            String[] strs=location.split(":");
+            communicationClient=new NettyCommunicationClient(strs[0],Integer.parseInt(strs[1]));
+            communicationClient.startClient();
+            clients.put(location,communicationClient);
+        }
+        return communicationClient;
     }
 
     @Override

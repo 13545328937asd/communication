@@ -1,11 +1,19 @@
 package com.wzx.message;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
+import java.util.UUID;
+
 public class CommunicationMessage {
+    private String messageId;
     private  FutureAnswer futureAnswer;
     private MessageType messageType;
     private boolean internalCommu=true;
     private boolean sync=true;
+    private String fromObjName;
+    @JSONField(serialize = false,deserialize = false)
     private Object fromObj ;
+    @JSONField(serialize = false,deserialize = false)
     private Object toObj;
     private Class toClazz;
     private String toObjName;
@@ -17,6 +25,7 @@ public class CommunicationMessage {
         this.futureAnswer = futureAnswer;
     }
     public CommunicationMessage(){
+        messageId= UUID.randomUUID().toString().replace("-","");
         futureAnswer=new FutureAnswer();
     }
     public MessageType getMessageType() {
@@ -79,5 +88,16 @@ public class CommunicationMessage {
     public void setSync(boolean sync) {
         this.sync = sync;
     }
-
+    public String getMessageId() {
+        return messageId;
+    }
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
+    public String getFromObjName() {
+        return fromObjName;
+    }
+    public void setFromObjName(String fromObjName) {
+        this.fromObjName = fromObjName;
+    }
 }
