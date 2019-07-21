@@ -34,7 +34,7 @@ public class DefaultChanelPoolHandler  implements ChannelPoolHandler {
         ByteBuf byteBuf = Unpooled.copiedBuffer(delimiter.getBytes());
         ch.pipeline().addLast(new CommunicationMessageEncoderHandler(delimiter));
         ch.pipeline().addLast(new DelimiterBasedFrameDecoder(1024,byteBuf));
-        ch.pipeline().addLast(new CommunicationMessageDecoderHandler());
+        ch.pipeline().addLast(new ClientCommMessageDecoderHandler());
         ch.pipeline().addLast(new ClientCommunicationHandler(messageMap));
     }
 }

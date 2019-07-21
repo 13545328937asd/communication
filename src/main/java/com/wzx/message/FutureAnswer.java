@@ -1,6 +1,8 @@
 package com.wzx.message;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wzx.exceptions.CommunicationTimeOutException;
+import com.wzx.serialize.FastJsonUtil;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -11,7 +13,7 @@ import java.util.concurrent.TimeoutException;
 
 
 public class FutureAnswer  implements Future {
-    private volatile Object answer;
+    public volatile Object answer;
     private volatile boolean isDone;
     private volatile boolean answered;//whether the message has been answered
     @Override
@@ -33,10 +35,25 @@ public class FutureAnswer  implements Future {
         synchronized (this){
             while(!answered){
                 wait();
-                return answer;
             }
-            return answer;
         }
+        return answer;
+    }
+
+    public <T> T  get(Class<T> clazz) throws InterruptedException, ExecutionException {
+        synchronized (this){
+            while(!answered){
+                wait();
+            }
+        }
+        if(answer.getClass().isPrimitive()){
+            return (T)answer;
+        }
+        if(answer instanceof JSONObject){
+            T object = ((JSONObject) answer).toJavaObject(clazz);
+            return object;
+        }
+        return (T)answer;
     }
 
     @Override

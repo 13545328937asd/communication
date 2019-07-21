@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 import java.nio.charset.Charset;
 import java.util.List;
 
-public class CommunicationMessageDecoderHandler extends ByteToMessageDecoder {
+public class ServerCommMessageDecoderHandler extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {

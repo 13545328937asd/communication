@@ -4,8 +4,10 @@ public class CommunicationMessageBuilder {
     private CommunicationMessage cm=new CommunicationMessage();
     public CommunicationMessageBuilder buildObjInfo(Object from,Object to){
         cm.setFromObj(from);
+        cm.setFromObjName(from.getClass().getName());
         if(to instanceof Class){
             cm.setToClazz((Class)to);
+            cm.setToObjName(((Class) to).getName());
         }else if(to instanceof String){
             cm.setToObjName(toString());
         }else{
@@ -13,6 +15,22 @@ public class CommunicationMessageBuilder {
         }
         return this;
     };
+    public CommunicationMessageBuilder buildToAppName(String toAppName){
+        cm.setToAppName(toAppName);
+        return this;
+    }
+    public CommunicationMessageBuilder buildFromAppName(String fromAppName){
+        cm.setFromAppName(fromAppName);
+        return this;
+    }
+    public CommunicationMessageBuilder buildToObjName(String toObjName){
+        cm.setToObjName(toObjName);
+        return this;
+    }
+    public CommunicationMessageBuilder buildFromObjName(String fromObjName){
+        cm.setFromObjName(fromObjName);
+        return this;
+    }
     public CommunicationMessageBuilder buildMessageType(MessageType type){
         cm.setMessageType(type);
         return this;

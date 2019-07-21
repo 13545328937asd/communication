@@ -2,6 +2,7 @@ package com.wzx.networking;
 
 import com.wzx.exceptions.UnrecognizedResponseMessageException;
 import com.wzx.message.CommunicationMessage;
+import com.wzx.message.ResponseMessage;
 import com.wzx.serialize.FastJsonUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -23,12 +24,12 @@ public class ClientCommunicationHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println(FastJsonUtil.toJson(msg));
-        String messageId=((CommunicationMessage)msg).getMessageId();
+        String messageId=((ResponseMessage)msg).getMessageId();
         CommunicationMessage message=messageMap.get(messageId);
         if(message==null){
             ctx.fireExceptionCaught(new UnrecognizedResponseMessageException(messageId));
         }else {
-            message.getFutureAnswer().setResult(((CommunicationMessage) msg).getFutureAnswer().get());
+            message.getFutureAnswer().setResult(((ResponseMessage)msg).getResponse());
             //remove the message from the map
             messageMap.remove(messageId);
         }

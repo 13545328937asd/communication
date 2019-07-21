@@ -1,10 +1,15 @@
 package com.wzx.message;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.wzx.Config.CommunicationConf;
+import com.wzx.ObjNameManager;
+import org.springframework.util.StringUtils;
 
 import java.util.UUID;
 
 public class CommunicationMessage {
+    private String fromAppName;
+    private String toAppName;
     private String messageId;
     private  FutureAnswer futureAnswer;
     private MessageType messageType;
@@ -27,6 +32,30 @@ public class CommunicationMessage {
     public CommunicationMessage(){
         messageId= UUID.randomUUID().toString().replace("-","");
         futureAnswer=new FutureAnswer();
+        fromObjName=CommunicationConf.get("application-name");
+    }
+
+    public String getFromAppName() {
+        return fromAppName;
+    }
+
+    public void setFromAppName(String fromAppName) {
+        this.fromAppName = fromAppName;
+    }
+
+    public String getToAppName() {
+        return toAppName;
+    }
+
+    public void setToAppName(String toAppName) {
+        this.toAppName = toAppName;
+    }
+
+    public String getFullToObjName(){
+        return ObjNameManager.getObjFullName(toAppName,toObjName);
+    }
+    public String getFullFromObjName(){
+        return ObjNameManager.getCurrentAppObjFullName(fromObjName);
     }
     public MessageType getMessageType() {
         return messageType;
@@ -76,9 +105,8 @@ public class CommunicationMessage {
     }
 
     public boolean isInternalCommu() {
-        return internalCommu;//default is true
+        return CommunicationConf.get("application-name").equals(toAppName);//default is true
     }
-
     public void setInternalCommu(boolean internalCommu) {
         this.internalCommu = internalCommu;
     }

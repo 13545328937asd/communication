@@ -26,8 +26,9 @@ public class MessageDisposeTask implements Runnable {
             messageDisposeCenter.messageDispose(message);
             message.getFutureAnswer().get(10, TimeUnit.SECONDS);
             logger.info(FastJsonUtil.toJson(message));
+            ResponseMessage responseMessage=new ResponseMessage(message.getMessageId(),message.getFutureAnswer().get(10, TimeUnit.SECONDS));
             if(ctx!=null){
-                ctx.writeAndFlush(message).sync();
+                ctx.writeAndFlush(responseMessage).sync();
             }
         } catch (Exception e) {
             if(ctx!=null){

@@ -1,21 +1,26 @@
 package com.wzx.message;
 
 import com.wzx.Voluble;
+import com.wzx.gateway.MessageGateWay;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
+
 @Component
 public class SpringMessageDisposeCenter implements BeanFactoryAware,MessageDisposeCenter {
+    @Resource
+    private MessageGateWay messageGateWay;
     private static BeanFactory beanFactory;
     public void messageDispose(CommunicationMessage message){
         if(message.isInternalCommu()){
             disposeMessageInternally(message);
         };
         if(!message.isInternalCommu()){//remote communication
-
+            messageGateWay.sendMessage(message);
         }
     }
 
@@ -45,8 +50,13 @@ public class SpringMessageDisposeCenter implements BeanFactoryAware,MessageDispo
         if(StringUtils.isEmpty(name)){
             return null;
         }
-        Object targetObj=beanFactory.getBean(name);
-        return targetObj;
+        boolean containsBean = beanFactory.containsBean(name);
+        if(containsBean){
+            return beanFactory.getBean(name);
+        }else{
+            return null;
+        }
+
     }
 
     ;

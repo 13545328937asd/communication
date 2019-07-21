@@ -14,6 +14,9 @@ import com.wzx.objectlocation.LocationManager;
 import com.wzx.objectlocation.LocationObserver;
 import com.wzx.objectlocation.ZookeeperLocationManager;
 import com.wzx.objectlocation.ZookeeperLocationObserver;
+import com.wzx.serialize.FastJsonUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -26,6 +29,7 @@ import java.util.concurrent.TimeoutException;
 
 @Component("messageGateWay")
 public class DefaultMessageGateWay implements  MessageGateWay, Voluble {
+    private static Logger logger= LoggerFactory.getLogger(DefaultMessageGateWay.class);
     private LocationManager locationManager;
     private LocationObserver locationObserver;
     private LoadBalance loadBalance;
@@ -68,12 +72,11 @@ public class DefaultMessageGateWay implements  MessageGateWay, Voluble {
     private LocationObserver getLocationObserver(ConcurrentHashMap<String, List<String>> locationTable) {
         return new ZookeeperLocationObserver(locationTable);
     }
-    ;
     @Override
     public String findDestination(String objName) {
         //find in the locationTable first
         List<String> locations=null;
-        if(locationTable.get(objName)==null){
+        if((locations=locationTable.get(objName))==null){
             //find with location manager
             locations = locationManager.getLocationInfo(objName);
         };
@@ -91,7 +94,8 @@ public class DefaultMessageGateWay implements  MessageGateWay, Voluble {
 
     @Override
     public void sendMessage(CommunicationMessage message) {
-        String location=findDestination(message.getToObjName());
+        logger.info("message send by gateway"+":"+ FastJsonUtil.toJson(message));
+        String location=findDestination(message.getFullToObjName());
         ObjectCommunicationClient client = getClient(location);
         try {
             client.sendMessage(message);

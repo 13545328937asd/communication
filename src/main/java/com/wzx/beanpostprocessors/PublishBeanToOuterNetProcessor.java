@@ -1,6 +1,7 @@
 package com.wzx.beanpostprocessors;
 
 import com.wzx.Config.CommunicationConf;
+import com.wzx.ObjNameManager;
 import com.wzx.Voluble;
 import com.wzx.annotations.ExposeToOuterNet;
 import com.wzx.controller.TestCommunicationController;
@@ -39,7 +40,7 @@ public class PublishBeanToOuterNetProcessor  implements BeanFactoryPostProcessor
             String beanClassName=beanDefinition.getBeanClassName();
             try {
                 if(Class.forName(beanClassName).isAnnotationPresent(ExposeToOuterNet.class)){
-                    locationManager.publishLocationInfo(beanClassName,ip, CommunicationConf.get("expose-port"));
+                    locationManager.publishLocationInfo(ObjNameManager.getCurrentAppObjFullName(beanClassName),ip, CommunicationConf.get("expose-port"));
                 };
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();

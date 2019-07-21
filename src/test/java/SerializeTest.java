@@ -1,11 +1,15 @@
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wzx.message.CommunicationMessage;
 import com.wzx.message.CommunicationMessageBuilder;
 import com.wzx.message.MessageType;
+import com.wzx.message.ResponseMessage;
 import com.wzx.serialize.FastJsonUtil;
 import com.wzx.service.impl.TestCommunicationServiceImpl;
 import org.junit.Test;
+
+import java.util.Date;
 
 
 public class SerializeTest {
@@ -18,10 +22,27 @@ public class SerializeTest {
         String toJson = FastJsonUtil.toJson(message);
         System.out.println(toJson);
 
-        ObjectMapper objectMapper=new ObjectMapper();
+        /*ObjectMapper objectMapper=new ObjectMapper();
         System.out.println(objectMapper.canSerialize(CommunicationMessage.class));
         String jsonStr=objectMapper.writeValueAsString(message);
-        System.out.println(jsonStr);
+        System.out.println(jsonStr);*/
+        /*ResponseMessage responseMessage=new ResponseMessage("123",new String("123"));
+        String json=FastJsonUtil.toJson(responseMessage);
+        System.out.println(json);
+        ResponseMessage message = FastJsonUtil.toObject(json, ResponseMessage.class);
+        String response = (String) message.getResponse();*/
+       /* ResponseMessage responseMessage=new ResponseMessage("123",new Person("WZX",23));
+        String json=FastJsonUtil.toJson(responseMessage);
+        String personjson=FastJsonUtil.toJson(new Person("WZX",23));
+
+        System.out.println(json);
+        System.out.println(personjson);
+
+        ResponseMessage message = FastJsonUtil.toObject(json, ResponseMessage.class);
+        JSONObject response = (JSONObject) message.getResponse();
+        Person person = response.toJavaObject(Person.class);
+        System.out.println(person);*/
+
 
     }
 }

@@ -45,7 +45,7 @@ public class NettyCommunicationClient  implements ObjectCommunicationClient{
                         ByteBuf byteBuf = Unpooled.copiedBuffer(delimiter.getBytes());
                         ch.pipeline().addLast(new CommunicationMessageEncoderHandler(delimiter));
                         ch.pipeline().addLast(new DelimiterBasedFrameDecoder(1024,byteBuf));
-                        ch.pipeline().addLast(new CommunicationMessageDecoderHandler());
+                        ch.pipeline().addLast(new ServerCommMessageDecoderHandler());
                         ch.pipeline().addLast(new ClientCommunicationHandler(messageMap));
                     }
                 }*/
