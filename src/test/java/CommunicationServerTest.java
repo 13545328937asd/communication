@@ -1,10 +1,6 @@
-import com.wzx.App;
-import com.wzx.networking.NettyCommunnicationServer;
-import com.wzx.networking.ObjectCommunicationServer;
+import com.wzx.messagebuilder.networking.NettyCommunnicationServer;
+import com.wzx.messagebuilder.networking.ObjectCommunicationServer;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /*@SpringBootTest(classes = App.class)
 @RunWith(SpringRunner.class)*/

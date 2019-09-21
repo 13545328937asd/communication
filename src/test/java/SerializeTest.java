@@ -1,15 +1,10 @@
-import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wzx.message.CommunicationMessage;
-import com.wzx.message.CommunicationMessageBuilder;
-import com.wzx.message.MessageType;
-import com.wzx.message.ResponseMessage;
-import com.wzx.serialize.FastJsonUtil;
-import com.wzx.service.impl.TestCommunicationServiceImpl;
+import com.wzx.messagebuilder.message.CommunicationMessage;
+import com.wzx.messagebuilder.message.CommunicationMessageBuilder;
+import com.wzx.messagebuilder.message.MessageType;
+import com.wzx.messagebuilder.serialize.FastJsonUtil;
+import com.wzx.messagebuilder.service.impl.TestCommunicationServiceImpl;
 import org.junit.Test;
-
-import java.util.Date;
 
 
 public class SerializeTest {

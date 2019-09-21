@@ -1,23 +1,19 @@
-import com.wzx.App;
-import com.wzx.gateway.MessageGateWay;
-import com.wzx.message.CommunicationMessage;
-import com.wzx.message.CommunicationMessageBuilder;
-import com.wzx.message.MessageType;
-import com.wzx.message.SpringBeanAccessor;
-import com.wzx.networking.NettyCommunicationClient;
-import com.wzx.networking.ObjectCommunicationClient;
-import com.wzx.service.impl.TestCommunicationServiceImpl;
+import com.wzx.messagebuilder.App;
+import com.wzx.messagebuilder.gateway.MessageGateWay;
+import com.wzx.messagebuilder.message.CommunicationMessage;
+import com.wzx.messagebuilder.message.CommunicationMessageBuilder;
+import com.wzx.messagebuilder.message.MessageType;
+import com.wzx.messagebuilder.networking.NettyCommunicationClient;
+import com.wzx.messagebuilder.networking.ObjectCommunicationClient;
+import com.wzx.messagebuilder.service.impl.TestCommunicationServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import sun.awt.windows.ThemeReader;
 
 import javax.annotation.Resource;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
-import java.util.concurrent.TransferQueue;
+
 @RunWith(SpringRunner.class) // 等价于使用 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = { App.class})
 public class CommunicationClientTest {
