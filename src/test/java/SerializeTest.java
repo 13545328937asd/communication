@@ -1,9 +1,8 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.wzx.messagebuilder.message.CommunicationMessage;
-import com.wzx.messagebuilder.message.CommunicationMessageBuilder;
-import com.wzx.messagebuilder.message.MessageType;
-import com.wzx.messagebuilder.serialize.FastJsonUtil;
-import com.wzx.messagebuilder.service.impl.TestCommunicationServiceImpl;
+import com.wzx.message.CommunicationMessageBuilder;
+import com.wzx.message.MessageType;
+import com.wzx.serialize.FastJsonUtil;
+import com.wzx.service.impl.TestCommunicationServiceImpl;
 import org.junit.Test;
 
 

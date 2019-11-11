@@ -1,5 +1,5 @@
-import com.wzx.messagebuilder.networking.NettyCommunnicationServer;
-import com.wzx.messagebuilder.networking.ObjectCommunicationServer;
+import com.wzx.networking.NettyCommunnicationServer;
+import com.wzx.networking.ObjectCommunicationServer;
 import org.junit.Test;
 
 /*@SpringBootTest(classes = App.class)

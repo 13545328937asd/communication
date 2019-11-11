@@ -1,9 +1,8 @@
-import com.wzx.messagebuilder.message.CommunicationMessage;
-import com.wzx.messagebuilder.message.CommunicationMessageBuilder;
-import com.wzx.messagebuilder.message.MessageType;
-import com.wzx.messagebuilder.networking.NettyCommunicationClient;
-import com.wzx.messagebuilder.networking.ObjectCommunicationClient;
-import com.wzx.messagebuilder.service.impl.TestCommunicationServiceImpl;
+import com.wzx.message.CommunicationMessageBuilder;
+import com.wzx.message.MessageType;
+import com.wzx.networking.NettyCommunicationClient;
+import com.wzx.networking.ObjectCommunicationClient;
+import com.wzx.service.impl.TestCommunicationServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,9 +1,10 @@
-import com.wzx.messagebuilder.annotation.ApplicationInfo;
-import com.wzx.messagebuilder.annotation.MessageParam;
-import com.wzx.messagebuilder.annotation.ObjectAction;
-import com.wzx.messagebuilder.annotation.ObjectInfo;
-import com.wzx.messagebuilder.message.CommunicationMessage;
-import com.wzx.messagebuilder.message.generator.MessageGenerator;
+import com.wzx.message.CommunicationMessage;
+import com.wzx.message.annotation.ApplicationInfo;
+import com.wzx.message.annotation.MessageParam;
+import com.wzx.message.annotation.ObjectAction;
+import com.wzx.message.annotation.ObjectInfo;
+import com.wzx.message.generator.MessageGenerator;
+
 @ApplicationInfo("PRODUCT")
 @ObjectInfo(name="productController")
 public interface TestMessageGenerator  extends MessageGenerator {

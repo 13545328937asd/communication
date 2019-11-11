@@ -1,6 +1,6 @@
-import com.wzx.messagebuilder.message.CommunicationMessage;
-import com.wzx.messagebuilder.message.generator.MessageGeneratorProxy;
-import com.wzx.messagebuilder.message.generator.MessageGeneratorProxyFactory;
+import com.wzx.message.CommunicationMessage;
+import com.wzx.message.generator.MessageGeneratorProxy;
+import com.wzx.message.generator.MessageGeneratorProxyFactory;
 import org.junit.Test;
 
 public class GeneratorTest {

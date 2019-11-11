@@ -9,6 +9,9 @@
   <version>1.0-SNAPSHOT</version>
   <modules>
     <module>message-builder</module>
+      <module>communicate</module>
+      <module>common</module>
+      <module>object-intellegence</module>
   </modules>
   <packaging>pom</packaging>
 
