@@ -2,16 +2,12 @@ package com.wzx.common.object.action;
 
 import java.util.List;
 
-public class ObjectAction implements Action
+public abstract class ObjectAction implements Action
 {
-    private String actionName;
 
+    private String actionName;
     private List<ActionParam> actionParams;
 
-    @Override
-    public Object act(Object actionObject,ActionContext actionContext, Object... params) {
-        return null;
-    }
     public String getActionName() {
         return actionName;
     }

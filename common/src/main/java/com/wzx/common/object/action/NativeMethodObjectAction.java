@@ -2,11 +2,14 @@ package com.wzx.common.object.action;
 
 import java.lang.reflect.Method;
 
-public class ExecuteNativeMethodAction extends ObjectAction {
+public class NativeMethodObjectAction extends ObjectAction {
     private Method method;
     private Class clazz;
+
     @Override
-    public Object act(Object actionObject, ActionContext actionContext,Object... params) {
+    public Object execute( ActionContext actionContext) {
+
+
         return null;
     }
 

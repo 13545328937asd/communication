@@ -6,10 +6,9 @@ package com.wzx.common.object.action;
 public interface Action {
 
     /**
-     *
-     * @param actionObject the obj who do the particular thing
-     * @param params the params of the action
+     *  do sth defined in the action
+     * @param actionContext  the context of the action
      * @return
      */
-    public Object act(Object actionObject,ActionContext actionContext,Object... params);
+    public Object execute(ActionContext actionContext);
 }

@@ -3,7 +3,7 @@ package com.wzx.objectintellegence.memory;
 /**
  * <p>
  *     this interface enable the object the power to remember things.
- *     note that the difference between the read and write interface is that
+ *     note that the difference between the read ,write interface is that
  *     the memory can only be accessed by the object itself.
  * </p>
  */
@@ -16,5 +16,8 @@ public interface Memory {
     }
     default Object readFromMemory(String key){
         return null;
+    }
+    default int updateMemory(String key ,String value){
+        return 0;
     }
 }

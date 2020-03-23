@@ -2,10 +2,11 @@ package com.wzx.message;
 
 import com.wzx.message.builder.CommunicationMessageBuilder;
 import com.wzx.common.tools.FastJsonUtil;
-import com.wzx.message.messageanswer.MessageAnswer;
+import com.wzx.message.messageanswer.Answer;
+import org.springframework.messaging.support.GenericMessage;
 
-public abstract class CommunicationMessage{
-    private MessageAnswer messageAnswer;
+public  class CommunicationMessage extends GenericMessage<MessageContent> {
+    private Answer messageAnswer;
     private String fromAppName;
     private String toAppName;
     private String messageId;
@@ -93,11 +94,11 @@ public abstract class CommunicationMessage{
         return FastJsonUtil.toJson(this);
     }
 
-    public MessageAnswer getMessageAnswer() {
+    public Answer getMessageAnswer() {
         return messageAnswer;
     }
 
-    public void setMessageAnswer(MessageAnswer messageAnswer) {
+    public void setMessageAnswer(Answer messageAnswer) {
         this.messageAnswer = messageAnswer;
     }
 }

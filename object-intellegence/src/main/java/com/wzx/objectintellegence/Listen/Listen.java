@@ -2,18 +2,22 @@ package com.wzx.objectintellegence.Listen;
 
 import com.wzx.common.exceptions.CommunicationException;
 import com.wzx.common.object.action.Action;
+import com.wzx.common.object.action.ActionContext;
+import com.wzx.common.object.action.ActionExecutor;
+import com.wzx.common.tools.CollectionUtil;
 import com.wzx.common.tools.ObjectInfoChecker;
 import com.wzx.message.CommunicationMessage;
 import com.wzx.objectintellegence.comprehension.Comprehend;
+import com.wzx.objectintellegence.comprehension.DefaultObjectComprehender;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * <p>
- *    the listen interface is designed to enable the object listening ability,which will
+ *    enable the object listening ability,which will
  *    help the object receive messages from outer worlds such as some other objects or
- *    systems.
+ *    systems,making it easier for objects to communicate
  * </p>
  */
 public interface Listen {
@@ -24,22 +28,33 @@ public interface Listen {
      */
     default void listen(CommunicationMessage message){
         Object targetObject = getTargetObject(message.getToObjName());
-        resolveObjectActions(message);
-        List<Action> actions=new ArrayList<>();
+        List<Action> actions = resolveObjectActions(message);
+        ActionExecutor.excuteActions(actions,getActionContext(message));
+    }
+
+    default ActionContext getActionContext(CommunicationMessage message){
+        return null;
+    };
+
+    default List<Action> resolveObjectActions(CommunicationMessage message){
+        List<Action> actions=null;
         if(this instanceof Comprehend){
             actions = ((Comprehend) this).comprehendMessage(message);
         }
-        actions.add();
-    }
+        if(CollectionUtil.isEmpty(actions)){
+            actions=new ArrayList<>();
+        }
 
-    void resolveObjectActions(CommunicationMessage message);
+        actions.addAll(DefaultObjectComprehender.getInstance().comprehendMessage(message));
+        return actions;
+    };
 
 
     default Object getTargetObject(String toObjName){
         if(ObjectInfoChecker.isNameOfClass(toObjName, this.getClass())){
             return this;
         }else{
-            throw new CommunicationException("the class "+listen.getClass()+" do not have a name called "+toObjName);
+            throw new CommunicationException("the class "+this.getClass()+" do not have a name called "+toObjName);
         }
     }
 }

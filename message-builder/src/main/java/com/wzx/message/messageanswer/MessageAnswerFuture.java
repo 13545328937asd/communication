@@ -1,6 +1,7 @@
 package com.wzx.message.messageanswer;
 
 
+import com.wzx.message.MessageContent;
 import com.wzx.message.exceptions.AnswerTimeOutException;
 
 import java.util.concurrent.ExecutionException;
@@ -8,11 +9,11 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class MessageAnswerFuture implements Answer, Future<MessageAnswer> {
+public class MessageAnswerFuture implements Answer, Future<MessageContent> {
     private static final int waiting=0;
     private static final int complete=1;
     private volatile int state=waiting;
-    private MessageAnswer messageAnswer;
+    private MessageContent answerContent;
     public boolean cancel(boolean mayInterruptIfRunning) {
         return false;
     }
@@ -28,17 +29,17 @@ public class MessageAnswerFuture implements Answer, Future<MessageAnswer> {
     }
 
     @Override
-    public MessageAnswer get() throws InterruptedException, ExecutionException {
+    public MessageContent get() throws InterruptedException, ExecutionException {
         synchronized (this){
             while(!isDone()){
                 wait();
             }
         }
-        return messageAnswer;
+        return answerContent;
     }
 
     @Override
-    public MessageAnswer get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+    public MessageContent get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
         long startTime=System.currentTimeMillis();
         long leftTime=0;
         long waitTotalTime=unit.toMillis(timeout);
@@ -51,13 +52,13 @@ public class MessageAnswerFuture implements Answer, Future<MessageAnswer> {
             if(!isDone()){
                 throw  new AnswerTimeOutException("can not get the result in the given time");
             }
-            return messageAnswer;
+            return answerContent;
         }
     }
-    public void set(MessageAnswer messageAnswer){
+    public void set(MessageContent messageAnswer){
         synchronized (this){
             state=complete;
-            this.messageAnswer=messageAnswer;
+            this.answerContent=messageAnswer;
             notifyAll();
         }
 
