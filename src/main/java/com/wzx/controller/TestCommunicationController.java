@@ -1,29 +1,37 @@
 package com.wzx.controller;
 
 import com.wzx.gateway.MessageGateWay;
-import com.wzx.message.CommunicationMessage;
-import com.wzx.message.CommunicationMessageBuilder;
-import com.wzx.message.MessageType;
+import com.wzx.message.*;
 import com.wzx.Voluble;
+import com.wzx.message.generator.MessageGenerator;
 import com.wzx.service.impl.TestCommunicationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 @RestController
 @RequestMapping("/communication")
 public class TestCommunicationController implements Voluble {
     @Resource
     MessageGateWay messageGateWay;
+
     @Autowired
     private TestCommunicationServiceImpl service;
     @RequestMapping("/test")
-    public String test(String name) throws Exception {
+    public String test(String name,String interest) throws Exception {
+
+        List<String> strings=new ArrayList<>();
+        strings.forEach(System.out::println);
+        BiFunction<String, String, String> test = this::test;
         System.out.println("controller----"+name);
         CommunicationMessage message= CommunicationMessageBuilder.getInstance().buildObjInfo(this, TestCommunicationServiceImpl.class)
                 .buildMessageType(MessageType.REQUEST).buildToAppName("order")

@@ -1,7 +1,6 @@
 package com.wzx.common.tools;
 
-import org.springframework.util.ClassUtils;
-import org.springframework.util.ObjectUtils;
+
 
 import java.util.*;
 
@@ -228,5 +227,4 @@ public class CollectionUtil {
             }
         }
     }
-    //ceshi 1
 }
