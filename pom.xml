@@ -8,9 +8,10 @@
   <artifactId>communication</artifactId>
   <version>1.0-SNAPSHOT</version>
   <modules>
-    <module>object-message</module>
-    <module>common</module>
-    <module>object-intellegence</module>
+    <module>message-builder</module>
+      <module>communicate</module>
+      <module>common</module>
+      <module>object-intellegence</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -68,12 +69,14 @@
     </dependency>
       <dependency>
           <groupId>com.wzx</groupId>
-          <artifactId>common</artifactId>
+          <artifactId>message-builder</artifactId>
           <version>1.0-SNAPSHOT</version>
           <scope>compile</scope>
       </dependency>
-
-
+      <!-- <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-log4j2</artifactId>
+       </dependency>-->
   </dependencies>
 
   <build>

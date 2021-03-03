@@ -1,9 +1,8 @@
 package com.wzx.objectintellegence.comprehension;
 
-
-import com.wzx.objectinfo.ability.Comprehend;
-import com.wzx.objectinfo.action.Action;
-import com.wzx.objectinfo.action.NativeMethodAction;
+import com.wzx.common.object.action.Action;
+import com.wzx.common.object.action.NativeMethodObjectAction;
+import com.wzx.message.CommunicationMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +10,14 @@ import java.util.List;
 /**
  * comprehend the message to execute the native method(the actions defined in the class)
  */
-public interface DefaultObjectComprehender<T> extends Comprehend<T> {
+public class DefaultObjectComprehender implements Comprehend{
     @Override
-    default List<Action> comprehend(T message) {
+    public List<Action> comprehendMessage(CommunicationMessage message) {
         List<Action> actions= new ArrayList<>();
-        actions.add(new NativeMethodAction());
-        test();
+        actions.add(new NativeMethodObjectAction());
         return actions;
     }
-    public void test();
-
+    public static Comprehend getInstance(){
+        return new DefaultObjectComprehender();
+    }
 }

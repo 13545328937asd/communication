@@ -1,10 +1,10 @@
 package com.wzx.objectintellegence;
 
-import com.wzx.objectinfo.ability.Listen;
-import com.wzx.objectinfo.ability.Analyse;
-import com.wzx.objectinfo.ability.Comprehend;
-import com.wzx.objectinfo.ability.Memory;
-import com.wzx.objectinfo.ability.Speak;
+import com.wzx.objectintellegence.Listen.Listen;
+import com.wzx.objectintellegence.analyse.Analyse;
+import com.wzx.objectintellegence.comprehension.Comprehend;
+import com.wzx.objectintellegence.memory.Memory;
+import com.wzx.objectintellegence.speak.Speak;
 
 /**
  *  this interface is designed to make the obj as intelligent as possible,to enable the obj

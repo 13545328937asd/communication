@@ -26,7 +26,6 @@ public class CommunicationClientTest {
     }
     @Test
     public void testCommunication(){
-
         CommunicationMessage message= CommunicationMessageBuilder.getInstance().buildObjInfo(this, TestCommunicationServiceImpl.class)
                 .buildMessageType(MessageType.REQUEST)
                 .buildMessageDetail("test",new Object[]{"wzx"}).buildToAppName("order").getCm();

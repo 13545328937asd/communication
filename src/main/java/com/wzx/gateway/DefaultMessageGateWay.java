@@ -4,8 +4,6 @@ import com.wzx.Config.CommunicationConf;
 import com.wzx.Voluble;
 import com.wzx.loadbalance.LoadBalance;
 import com.wzx.loadbalance.RandomLoadBalance;
-import com.wzx.message.CommunicationMessage;
-import com.wzx.message.exceptions.RemoteObjectNotFoundException;
 import com.wzx.networking.NettyCommunicationClient;
 import com.wzx.networking.NettyCommunnicationServer;
 import com.wzx.networking.ObjectCommunicationClient;

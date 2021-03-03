@@ -1,6 +1,5 @@
 package com.wzx.networking;
 
-import com.wzx.message.CommunicationMessage;
 import com.wzx.serialize.FastJsonUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -20,7 +19,5 @@ public class ServerCommMessageDecoderHandler extends ByteToMessageDecoder {
         CommunicationMessage message = FastJsonUtil.toObject(messeageString, CommunicationMessage.class);
         list.add(message);
         byteBuf.skipBytes(readableBytes);
-        byteBuf.writeBytes()
-
     }
 }
