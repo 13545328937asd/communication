@@ -1,5 +1,4 @@
-package com.wzx.objectintellegence.analyse;
-
+package java.wzx.intellegence.analyse;
 
 /**
  * analyse ability. analyse something to draw a conclusion
