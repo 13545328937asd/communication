@@ -1,4 +1,4 @@
-package java.wzx.intellegence.comprehension;
+package java.wzx.intellegence.comprehend;
 
 /**
  * comprehend something to get a result

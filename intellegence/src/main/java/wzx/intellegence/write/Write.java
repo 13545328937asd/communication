@@ -1,4 +1,4 @@
-package com.wzx.objectintellegence.write;
+package java.wzx.intellegence.write;
 
 /**
  * <p>
@@ -7,6 +7,9 @@ package com.wzx.objectintellegence.write;
  */
 public interface Write<K,V> {
     default int write(K key,V value){
+        return 0;
+    }
+    default int write(V value){
         return 0;
     }
 }

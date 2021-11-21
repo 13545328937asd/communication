@@ -5,13 +5,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.wzx</groupId>
-  <artifactId>communication</artifactId>
+  <artifactId>smart-object</artifactId>
   <version>1.0-SNAPSHOT</version>
   <modules>
     <module>message-builder</module>
-      <module>communicate</module>
-      <module>common</module>
-      <module>object-intellegence</module>
+    <module>common</module>
+    <module>object-intellegence</module>
+    <module>object-action</module>
   </modules>
   <packaging>pom</packaging>
 
