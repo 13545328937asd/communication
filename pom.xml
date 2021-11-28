@@ -12,6 +12,8 @@
     <module>common</module>
     <module>object-intellegence</module>
     <module>object-action</module>
+      <module>object-memory</module>
+    <module>object-repository</module>
   </modules>
   <packaging>pom</packaging>
 
